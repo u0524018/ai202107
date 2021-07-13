@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import random
+from mysite.models import Post
 
 def index(request):
 	name = "林桐生"
@@ -10,4 +11,5 @@ def index(request):
 
 
 def news(request):
+	posts = Post.objects.all()
 	return render(request, "news.html", locals())
