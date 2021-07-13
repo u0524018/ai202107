@@ -7,3 +7,7 @@ def index(request):
 	special = random.randint(1, 42)
 	lotto = [random.randint(1, 42) for i in range(6)]
 	return render(request, "index.html", locals())
+
+
+def news(request):
+	return render(request, "news.html", locals())
