@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 import random
 from mysite.models import Post
@@ -13,3 +13,10 @@ def index(request):
 def news(request):
 	posts = Post.objects.all()
 	return render(request, "news.html", locals())
+
+def show(request, id):
+	try:
+		post = Post.objects.get(id=id)
+	except:
+		return redirect("/news/")
+	return render(request, "show.html", locals())
