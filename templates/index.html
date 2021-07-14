@@ -5,4 +5,7 @@
 {% block main %}
       特別號：{{special}}<br>
       一般號：<{{lotto}}
+      {% autoescape off %}
+      {{ plot_div }}
+      {% endautoescape %}
 {% endblock %}
