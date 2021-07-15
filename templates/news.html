@@ -8,12 +8,22 @@
 			<td>編號</td>
 			<td>新聞標題</td>
 			<td>張貼日期</td>
+			{% if request.user.is_superuser %}
+				<td>管理</td>
+			{% endif %}
 		</tr>
 	{% for post in posts %}
 		<tr>
 			<td>{{ post.id }}</td>
-			<td><a href="/show/{{ post.id }}">{{ post.title }}</a></td>
+			{% if request.user.is_authenticated %}
+				<td><a href="/show/{{ post.id }}">{{ post.title }}</a></td>
+			{% else %}
+				<td><a>{{ post.title }}</a></td>
+			{%endif%}
 			<td>{{ post.pub_date }}</td>
+			{% if request.user.is_superuser %}
+				<td><a class="btn btn-warning" href="/delete/{{post.id}}">刪除</a></td>
+			{% endif %}
 		</tr>
 	{% endfor %}
 	</table>

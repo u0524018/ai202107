@@ -4,9 +4,11 @@
 {% block headmessage %}城市人口統計圖表{{name}} {% endblock %}
 {% block main %}
 
+
+
 <form action="/chart/" method=POST>
-      <select name="id">
-      <option value="999">請選擇一個國家</option>
+      請選擇國家：<select name="id">
+      <option value="999">全部顯示</option>
       {% for country in countries %}
       <option value="{{country.id}}">{{country.name}}</option>
       {% endfor %}
@@ -20,19 +22,15 @@
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
-    data: {labels: [
-        {% for city in cities %}
-            '{{city.names}}',
-        {% endfor %} ],
-        // label:{{names}},
+    data: {
+        labels: 
+        {% autoescape off %}
+        {{names}}
+        {% endautoescape %}
+        ,
         datasets: [{
             label: '城市人口排行',
-            data: [
-            {% for city in cities %}
-                  {{city.population}},
-            {% endfor %}
-            // data:{{population}},
-        ],
+              data: {{population}},
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
